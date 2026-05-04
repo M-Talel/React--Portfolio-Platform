@@ -28,22 +28,23 @@ src/
 
 ## Getting Started
 
-## Installation
+Install dependencies and run the app locally:
 
-# 1.Install dependencies
+```bash
+cd "Summative Lab"
 npm install
-
-# 2. Start development server
 npm run dev
+```
 
-# Sample Project
+The application will be available at `http://localhost:5173`
+
+## Sample Project
 
 The application comes pre-loaded with a sample project showcasing different categories including web design, branding, photography, video production, illustration, and UI/UX design.
 
 ## Technologies Used
 
 - **React**: UI library with hooks
-- **Vite ***: Build tool and dev server
+- **Vite \***: Build tool and dev server
 - **CSS**: Modern styling with gradients and animations
 - **JavaScript**: Modern JavaScript features
-
