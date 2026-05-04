@@ -6,7 +6,6 @@ import ProjectForm from './components/ProjectForm'
 import './App.css'
 
 function App() {
-  // Initial project for the current date
   const initialProjects = [
     {
       id: 1,
@@ -19,18 +18,15 @@ function App() {
     }
   ];
 
-  // State management
   const [projects, setProjects] = useState(initialProjects);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Filter projects based on search term
   const filteredProjects = useMemo(() => {
     return projects.filter(project =>
       project.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [projects, searchTerm]);
 
-  // Add new project
   const handleAddProject = (newProjectData) => {
     const newProject = {
       ...newProjectData,
@@ -39,7 +35,6 @@ function App() {
     setProjects([newProject, ...projects]);
   };
 
-  // Delete project
   const handleDeleteProject = (projectId) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       setProjects(projects.filter(project => project.id !== projectId));

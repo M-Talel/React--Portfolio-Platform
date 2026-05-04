@@ -21,7 +21,6 @@ function ProjectForm({ onAddProject }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validate required fields
     if (!formData.title || !formData.description || !formData.image) {
       alert('Please fill in all required fields');
       return;
@@ -29,7 +28,6 @@ function ProjectForm({ onAddProject }) {
 
     onAddProject(formData);
     
-    // Reset form
     setFormData({
       title: '',
       description: '',
