@@ -10,24 +10,37 @@ function ProjectForm({ onAddProject }) {
     image: '',
   });
 
+  // Generic handler for controlled form inputs.
+  // Because each input shares the same `name` attribute as a field in
+  // `formData`, we can update the correct property dynamically.
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Use the functional form of setState to avoid issues with stale
+    // closures when multiple updates happen quickly.
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
+    // Minimal validation for required fields.
+    // Note: HTML `required` is also present on some inputs, but we keep
+    // this extra check to guard against empty values in the payload.
     if (!formData.title || !formData.description || !formData.image) {
       alert('Please fill in all required fields');
       return;
     }
 
+    // Pass the form payload back to the parent so it can update
+    // application state.
     onAddProject(formData);
-    
+
+    // Reset to defaults after successful submission.
     setFormData({
       title: '',
       description: '',
@@ -37,6 +50,7 @@ function ProjectForm({ onAddProject }) {
       image: '',
     });
   };
+
 
   return (
     <section className="form-section">

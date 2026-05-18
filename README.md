@@ -1,134 +1,81 @@
-# Portfolio Showcase - Creative Agency Web Platform
+# Portfolio Showcase (React + Vite)
 
-A modern, responsive React-based web application for showcasing a creative agency's portfolio. This single-page application (SPA) allows creative agencies, freelancers, and professionals to display their work, manage projects dynamically, and provide an interactive experience for potential clients and collaborators.
+A responsive React single-page app for showcasing a creative agency portfolio. Users can add projects, delete them with confirmation, and search through project titles in real time.
 
-Built with React and Vite, this application features a clean, professional interface with real-time search capabilities, dynamic project management, and full responsiveness across all devices.
+> Built as a simple in-memory demo: data is stored in React state only (no database / backend).
 
 ---
 
 ## Features
 
-### Core Functionality
-
-- **Project Gallery**: Display projects in an elegant responsive grid layout with comprehensive project information including title, description, category, date, and detailed project information
-- **Dynamic Project Management**: Add new projects to the portfolio on-the-fly with a user-friendly form interface
-- **Real-time Search & Filter**: Instantly search and filter projects by title with live results as you type
-- **Project Deletion**: Remove projects from the portfolio with a confirmation dialog to prevent accidental deletions
-- **Responsive Design**: Fully responsive and mobile-optimized layout that adapts beautifully to desktop, tablet, and mobile devices
-
-### User Experience
-
-- **Clean, Professional UI**: Modern design with smooth transitions and visual hierarchy
-- **Intuitive Navigation**: Easy-to-use header and navigation structure
-- **Visual Feedback**: Confirmation dialogs and form validation for safe operations
-- **Performance Optimized**: Uses React hooks and memoization for efficient rendering
+- **Project gallery (responsive grid)**: Cards show title, description, category, date, and details.
+- **Add projects**: A form collects project fields and inserts the new project at the top of the list.
+- **Delete projects**: “Remove” button asks for confirmation via a modal prompt.
+- **Real-time search**: Filters projects by **title** as you type (case-insensitive).
+- **Optimized rendering**: Uses `useMemo` for the filtered list.
 
 ---
 
-## Prerequisites
+## Known limitations
 
-Before you begin, ensure you have the following installed on your system:
-
-- **Node.js** 
-- **npm** 
-- **Git**
-- A code editor like Visual Studio Code or any text editor of your choice
+- **No persistence**: Refreshing the page resets all projects to the initial hardcoded set.
+- **Image URL not displayed**: The form collects an `image` URL, but the current `ProjectCard` component does not render it (it’s a placeholder colored block).
+- **Search scope**: Search only matches the **project title**, not description/category/details.
 
 ---
 
-## Setup Instructions
+## Setup
 
-Step 1: Clone or Navigate to the Project.
-Step 2: Install all necessary dependencies(react, npm, etc.)
-Step 3: Start the Development Server.
-Step 4: Access the Application
+From the `Summative Lab/` folder:
 
----
-
-## Usage Guide
-
-### Viewing Projects
-
-1. **Browse the Portfolio**: When you first load the application, you'll see the landing page with a grid of existing projects
-2. **View Project Details**: Each project card displays:
-   - Project title
-   - Description
-   - Category
-   - Date created
-   - Detailed information about the project
-
-### Adding New Projects
-
-1. **Open the Project Form**: Click on the "Add Project" section or button in the application
-2. **Fill in Project Details**:
-   - **Title**: The name of your project
-   - **Description**: A brief overview of the project
-   - **Category**: Select from categories like Web Design, Branding, Photography, Video Production, Illustration, UI/UX Design, etc.
-   - **Date**: The project completion or publication date
-   - **Details**: More comprehensive information about the project
-   - **Image URL** (optional): Link to a project image
-
-3. **Submit the Form**: Click "Add Project" to add your project to the portfolio
-4. **Confirmation**: The new project will appear at the top of the project grid
-
-### Searching and Filtering Projects
-
-1. **Use the Search Bar**: Located at the top of the project list
-2. **Type a Project Name**: Start typing to filter projects in real-time
-3. **Clear Search**: Clear the search field to see all projects again
-
-### Deleting Projects
-
-1. **Locate the Project**: Find the project you want to delete in the grid
-2. **Click Delete**: Click the delete button on the project card
-3. **Confirm Deletion**: A confirmation dialog will appear asking "Are you sure you want to delete this project?"
-4. **Confirm or Cancel**: Click "OK" to delete or "Cancel" to keep the project
-
----
-
-## Project Structure
-
-```
-Summative Lab/
-├── README.md                 
-├── package.json              
-├── vite.config.js            
-├── eslint.config.js          
-├── index.html                
-├── public/                   
-│   └── (public assets)
-│
-└── src/
-    ├── main.jsx              
-    ├── App.jsx               
-    ├── App.css               
-    ├── index.css             
-    │
-    ├── assets/               
-    │
-    └── components/           
-        ├── Header.jsx        
-        ├── SearchBar.jsx     
-        ├── ProjectForm.jsx   
-        ├── ProjectList.jsx   
-        └── ProjectCard.jsx   
+```bash
+npm install
 ```
 
-### Component Details
+---
 
-- **Header.jsx**: Displays the agency/portfolio branding and main navigation
-- **SearchBar.jsx**: Input field that updates search term state in real-time
-- **ProjectForm.jsx**: Form with fields for project title, description, category, date, details, and image URL
-- **ProjectList.jsx**: Maps through filtered projects and renders ProjectCard components
-- **ProjectCard.jsx**: Displays individual project information with delete functionality
-- **App.jsx**: Main component managing application state (projects and search term) and handling project addition/deletion
+## Development / Running locally
+
+```bash
+npm run dev
+```
+
+Open the URL shown in your terminal (typically `http://localhost:5173`).
 
 ---
 
-## State Management
+## Build (production)
 
-The application uses React's built-in state management with hooks:
+```bash
+npm run build
+npm run preview
+```
 
-- **`useState`**: Manages projects array and search term state
-- **`useMemo`**: Optimizes filter operation to recalculate only when projects or searchTerm changes
+---
 
+## Project structure
+
+- `src/App.jsx`
+  - Holds application state (`projects`, `searchTerm`)
+  - Implements search filtering (`useMemo`)
+  - Handles add/delete actions
+- `src/components/`
+  - `Header.jsx`: Branding header
+  - `SearchBar.jsx`: Search input
+  - `ProjectForm.jsx`: Form to add a project
+  - `ProjectList.jsx`: Grid layout for project cards
+  - `ProjectCard.jsx`: Individual project card UI + remove button
+
+---
+
+## GitHub
+
+This repository is configured with a Git remote (`origin`) pointing to the author’s GitHub repo.
+
+To publish changes:
+
+```bash
+git add .
+git commit -m "Update README and add code comments"
+git push
+```
