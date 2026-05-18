@@ -30,16 +30,18 @@ function ProjectForm({ onAddProject }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Minimal validation for required fields.
-    // Note: HTML `required` is also present on some inputs, but we keep
-    // this extra check to guard against empty values in the payload.
-    if (!formData.title || !formData.description || !formData.image) {
+  // Minimal validation for required fields.
+  // Note: HTML `required` is already set on some inputs, but we still
+  // validate here so the parent never receives an incomplete payload
+  // (useful if browser behavior differs or if inputs are changed later). 
+  if (!formData.title || !formData.description || !formData.image) {
       alert('Please fill in all required fields');
       return;
     }
 
     // Pass the form payload back to the parent so it can update
     // application state (projects list).
+    // The parent is responsible for enriching it (e.g., assigning an id).
     onAddProject(formData);
 
     // Reset to defaults after successful submission.

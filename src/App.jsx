@@ -27,12 +27,15 @@ function App() {
 
   // Memoize filtering so we only recompute the filtered list when either
   // the source projects array or the user's search term changes.
-  // This avoids re-filtering on unrelated state updates.
   //
-  // Note: This is a small optimization for this demo app, but it also
-  // clarifies intent: `filteredProjects` is derived state.
+  // Why `useMemo` here?
+  // - `filteredProjects` is *derived state* (it can be computed from
+  //   `projects` + `searchTerm`).
+  // - Memoizing makes the intent explicit and prevents unnecessary
+  //   filtering work on unrelated renders (e.g., form typing elsewhere).
   const filteredProjects = useMemo(() => {
-    // Normalize once for consistent comparisons.
+    // Normalize once for consistent comparisons (avoids calling
+    // `toLowerCase()` for every project inside the filter callback).
     const normalizedSearch = searchTerm.toLowerCase();
 
     return projects.filter((project) => {
@@ -51,6 +54,10 @@ function App() {
     //
     // Note: this is safe for this in-memory app because the array lives
     // only in the current browser session.
+    // Generate a new id based on the current list.
+    // This is a reasonable approach for an in-memory demo:
+    // - ids only need to be unique within this session
+    // - there is no backend/database that could create competing ids
     const nextId = Math.max(...projects.map((p) => p.id), 0) + 1;
 
     const newProject = {
@@ -68,7 +75,7 @@ function App() {
     // `window.confirm` keeps this example dependency-free.
     if (window.confirm('Are you sure you want to delete this project?')) {
       // Filter creates a new array (immutability) so React can detect
-      // state changes correctly.
+      // state changes correctly and we avoid mutating existing state.
       setProjects(projects.filter((project) => project.id !== projectId));
     }
   };
