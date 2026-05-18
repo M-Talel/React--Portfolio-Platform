@@ -6,6 +6,9 @@ import ProjectForm from './components/ProjectForm'
 import './App.css'
 
 function App() {
+  // Seed data so the app looks populated on first load.
+  // In this project everything is kept in-memory (React state only).
+  // Refreshing the page will reset to this list.
   const initialProjects = [
     {
       id: 1,
@@ -18,13 +21,18 @@ function App() {
     }
   ];
 
+  // Core app state: list of projects + current search string.
   const [projects, setProjects] = useState(initialProjects);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Memoize filtering so we only recompute the filtered list when either
   // the source projects array or the user's search term changes.
   // This avoids re-filtering on unrelated state updates.
+  //
+  // Note: This is a small optimization for this demo app, but it also
+  // clarifies intent: `filteredProjects` is derived state.
   const filteredProjects = useMemo(() => {
+    // Normalize once for consistent comparisons.
     const normalizedSearch = searchTerm.toLowerCase();
 
     return projects.filter((project) => {
@@ -34,7 +42,8 @@ function App() {
     });
   }, [projects, searchTerm]);
 
-
+  // Called by <ProjectForm /> after successful validation.
+  // Receives only the form payload, then we enrich it with a unique id.
   const handleAddProject = (newProjectData) => {
     // Projects are stored only in React state (no backend).
     // We generate a new unique `id` by taking the current max `id` and
@@ -53,7 +62,7 @@ function App() {
     setProjects([newProject, ...projects]);
   };
 
-
+  // Called by <ProjectCard /> when a user clicks the delete button.
   const handleDeleteProject = (projectId) => {
     // Deletions are destructive, so we ask for confirmation.
     // `window.confirm` keeps this example dependency-free.
@@ -64,11 +73,10 @@ function App() {
     }
   };
 
-
   return (
     <div className="app">
       <Header />
-      
+
       <main className="main-content">
         <section className="form-container">
           <ProjectForm onAddProject={handleAddProject} />
@@ -82,7 +90,7 @@ function App() {
             </p>
           </div>
 
-          <SearchBar 
+          <SearchBar
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
           />
@@ -99,3 +107,4 @@ function App() {
 }
 
 export default App
+

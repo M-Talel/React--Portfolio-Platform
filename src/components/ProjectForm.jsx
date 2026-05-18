@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
 function ProjectForm({ onAddProject }) {
+  // Controlled form state.
+  // Using a single object keeps the form scalable: each input maps to a
+  // `formData` field with the same `name`.
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -24,7 +27,6 @@ function ProjectForm({ onAddProject }) {
     }));
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -37,7 +39,7 @@ function ProjectForm({ onAddProject }) {
     }
 
     // Pass the form payload back to the parent so it can update
-    // application state.
+    // application state (projects list).
     onAddProject(formData);
 
     // Reset to defaults after successful submission.
@@ -50,7 +52,6 @@ function ProjectForm({ onAddProject }) {
       image: '',
     });
   };
-
 
   return (
     <section className="form-section">
@@ -146,3 +147,4 @@ function ProjectForm({ onAddProject }) {
 }
 
 export default ProjectForm;
+

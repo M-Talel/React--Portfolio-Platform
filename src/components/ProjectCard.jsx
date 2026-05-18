@@ -4,7 +4,12 @@ function ProjectCard({ project, onDelete }) {
       {/*
         The app's form collects an `image` URL, but the current UI intentionally
         does not render it (the project image area is just a colored block).
-        If you want image previews, replace this placeholder with an <img>.
+
+        This keeps the demo dependency-free and avoids layout issues from
+        loading arbitrary external images.
+
+        If you want image previews, replace this placeholder with an <img>
+        and consider adding basic styling + an `alt` tag.
       */}
       <div className="project-image"></div>
 
@@ -21,7 +26,8 @@ function ProjectCard({ project, onDelete }) {
 
         <button
           className="delete-btn"
-          // Inline handler keeps the card self-contained.
+          // Inline handler keeps the card self-contained: it passes just the
+          // project id back up to the parent.
           onClick={() => onDelete(project.id)}
           aria-label="Delete project"
         >
@@ -34,3 +40,4 @@ function ProjectCard({ project, onDelete }) {
 
 
 export default ProjectCard;
+
